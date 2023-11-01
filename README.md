@@ -1,3 +1,8 @@
+### AFPQ Usage
+```shell
+python examples/quantization/AFPQ_example.py --model meta-llama/Llama-2-7b-hf --format fp --group_size 128 --no_pack --tasks all
+```
+
 <h1 align="center">AutoGPTQ</h1>
 <p align="center">An easy-to-use LLMs quantization package with user-friendly apis, based on GPTQ algorithm.</p>
 <p align="center">

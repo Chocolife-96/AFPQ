@@ -44,7 +44,13 @@ except:
 logger = getLogger(__name__)
 
 
-def dynamically_import_QuantLinear(use_triton: bool, desc_act: bool, group_size: int, bits: int, disable_exllama: Optional[bool] = None, disable_exllamav2:bool = False, use_qigen: bool = False):
+def dynamically_import_QuantLinear(use_triton: bool, desc_act: bool, group_size: int, bits: int, format: str, disable_exllama: Optional[bool] = None, disable_exllamav2:bool = False, use_qigen: bool = False):
+    if format == 'nf':
+        from ..nn_modules.qlinear.qlinear_cuda_nf import QuantLinear
+        return QuantLinear
+    elif format == 'fp':
+        from ..nn_modules.qlinear.qlinear_cuda_fp import QuantLinear
+        return QuantLinear
     if use_qigen:
         from ..nn_modules.qlinear.qlinear_qigen import QuantLinear
     else:

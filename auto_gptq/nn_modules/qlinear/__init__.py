@@ -23,8 +23,11 @@ class GeneralQuantLinear(nn.Linear):
         self.qweight.requires_grad = False
         self.bias.requires_grad = False
 
-        self.register_buffer('qzeros', quant_linear_module.qzeros)
+        if hasattr(quant_linear_module, "qzeros"):
+            self.register_buffer('qzeros', quant_linear_module.qzeros)
         self.register_buffer('scales', quant_linear_module.scales)
+        if hasattr(quant_linear_module, "scales2"):
+            self.register_buffer('scales2', quant_linear_module.scales2)
         self.register_buffer('g_idx', quant_linear_module.g_idx)
 
         if hasattr(quant_linear_module, "wf"):
