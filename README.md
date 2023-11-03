@@ -1,17 +1,33 @@
 ### AFPQ
-This repository contains the code for the paper AFPQ: Asymmetric Floating Point Quantization for LLMs, implemented based on [AutoGPTQ](https://github.com/PanQiWei/AutoGPTQ).
+This repository contains the code of the paper AFPQ: Asymmetric Floating Point Quantization for LLMs, implemented based on [AutoGPTQ](https://github.com/PanQiWei/AutoGPTQ).
 
-Install AFPQ from source: 
+#### Environment setup: 
 ```shell
 git clone https://github.com/zhangsichengsjtu/AFPQ.git
 cd AFPQ
+
+# Option 1: Since our work doesn't need AutoGPTQ kernels, you may comment related codes and directly run from source:
+# comment line 13-17 of auto_gptq/nn_modules/qlinear/qlinear_exllama.py, line 14-18 of auto_gptq/nn_modules/qlinear/qlinear_qigen.py
+export PYTHONPATH = $PYTHONPATH:[AFPQ PATH]
+
+# Option 2: If you need to use original AutoGPTQ kernels, please install from source
+pip install numpy gekko pandas
 pip install .
 ```
 
-To replicate the experiment results in our paper, please refer to the following example:
+#### To replicate the experiment results in our paper: 
+
+For rtn & gptq results of wikitext2 & mmlu, please refer to the following examples: (For evaluation of mmlu dataset, install [lm-evaluation-harness](https://github.com/EleutherAI/lm-evaluation-harness) first)
 ```shell
-python examples/quantization/AFPQ_example.py --model meta-llama/Llama-2-7b-hf --format fp --group_size 128 --no_pack --tasks all
+# RTN, fp4-sym, group_size = -1
+python examples/quantization/AFPQ_example.py --model meta-llama/Llama-2-7b-hf --format fp --bits 4 --group_size -1 --no_pack --tasks wikitext2,mmlu
+# GPTQ, nf3-asym, group_size = 128
+python examples/quantization/AFPQ_example.py --model meta-llama/Llama-2-7b-hf --format nf --bits 3 --group_size 128 --gptq_quant --two_scale --no_pack --tasks wikitext2,mmlu
 ```
+
+For downstream tasks(code & math), please refer to the readme and codes under examples/downStreamTask
+
+#### Others
 
 To learn more about our idea and experiments, please refer to our paper
 
