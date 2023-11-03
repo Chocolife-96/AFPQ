@@ -1,7 +1,21 @@
-### AFPQ Usage
+### AFPQ
+This repository contains the code for the paper AFPQ: Asymmetric Floating Point Quantization for LLMs, implemented based on [AutoGPTQ](https://github.com/PanQiWei/AutoGPTQ).
+
+Install AFPQ from source: 
+```shell
+git clone https://github.com/zhangsichengsjtu/AFPQ.git
+cd AFPQ
+pip install .
+```
+
+To replicate the experiment results in our paper, please refer to the following example:
 ```shell
 python examples/quantization/AFPQ_example.py --model meta-llama/Llama-2-7b-hf --format fp --group_size 128 --no_pack --tasks all
 ```
+
+To learn more about our idea and experiments, please refer to our paper
+
+For more information about the AutoGPTQ code base, please refer to the original AutoGPTQ README below and [the original AutoGPTQ repository](https://github.com/PanQiWei/AutoGPTQ)
 
 <h1 align="center">AutoGPTQ</h1>
 <p align="center">An easy-to-use LLMs quantization package with user-friendly apis, based on GPTQ algorithm.</p>

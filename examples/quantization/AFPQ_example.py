@@ -247,8 +247,6 @@ def eval(model_name, model, eval_tasks):
         state_dict = model.state_dict()
         from transformers import AutoModelForCausalLM
         model = AutoModelForCausalLM.from_pretrained(model_name, device_map='auto', torch_dtype=torch.float16, cache_dir=CACHE_DIR)
-        print('device_map:')
-        print(model.hf_device_map)
         model.load_state_dict(state_dict)
     else:
         model = model.to('cuda:0')
@@ -331,8 +329,7 @@ def main():
 
     # quantize model
     if not args.no_quant:
-        logger.info(f'Base model: {args.model}, Format: {args.format}{args.bits}, Group_size: {args.group_size}, GPTQ: {args.gptq_quant}')
-        if args.format == 'af': logger.info(f'format_prototype: {args.format_prototype}, tensor_percentile: {args.tensor_percentile}, group_percentile: {args.group_percentile}')
+        logger.info(f'Base model: {args.model}, Format: {args.format}{args.bits}, Group_size: {args.group_size}, GPTQ: {args.gptq_quant}, Two_scale: {args.two_scale}')
         time_start = time.time()
         traindataset,testenc = get_wikitext2(128, 0, 2048, args.model)
         model.quantize(traindataset, use_triton=False, pack=(not args.no_pack))
