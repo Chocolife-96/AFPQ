@@ -1,5 +1,5 @@
-### AFPQ
-This repository contains the code of the paper [AFPQ: Asymmetric Floating Point Quantization for LLMs](https://arxiv.org/abs/2311.01792), implemented based on [AutoGPTQ](https://github.com/PanQiWei/AutoGPTQ).
+### AFPQ (ACL-findings 2024)
+This repository contains the code of the paper [AFPQ: Asymmetric Floating Point Quantization for LLMs](https://aclanthology.org/2024.findings-acl.3.pdf), implemented based on [AutoGPTQ](https://github.com/PanQiWei/AutoGPTQ).
 
 #### Environment setup: 
 ```shell
